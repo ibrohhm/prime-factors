@@ -1,0 +1,21 @@
+#main{
+  display: flex;
+}
+.main{
+  flex-grow:1;
+  margin:20px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table {
+  margin-bottom: 10px;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+#diff-time {
+  text-align: center;
+}
