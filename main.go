@@ -9,6 +9,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/prime-factors/model"
+	"github.com/prime-factors/prime"
 	"github.com/prime-factors/service"
 	"github.com/prime-factors/utility/request"
 	"github.com/prime-factors/utility/response"
@@ -36,11 +37,19 @@ func PrimeFactorsHandler(w http.ResponseWriter, r *http.Request, params httprout
 		return
 	}
 
+	with := service.WithGoroutine{
+		Prime: &prime.Prime{},
+	}
+
+	without := service.WithoutGoroutine{
+		Prime: &prime.Prime{},
+	}
+
 	var p model.PrimesChecking
 	if form.IsGoroutine {
-		p = service.PrimesCheckWithGoroutine(getNumbers(form))
+		p = with.PrimesCheck(getNumbers(form))
 	} else {
-		p = service.PrimesCheckWithoutGoroutine(getNumbers(form))
+		p = without.PrimesCheck(getNumbers(form))
 	}
 
 	response.WriteSuccess(w, p, "ok")

@@ -2,10 +2,14 @@ package prime
 
 import (
 	"math"
+	"time"
 )
 
+type Prime struct {
+}
+
 // checking prime number using sieve method
-func Check(number int) bool {
+func (p *Prime) Check(number int) bool {
 	if number == 2 {
 		return true
 	} else if number%2 == 0 || number == 1 || number <= 0 {
@@ -26,7 +30,7 @@ func Check(number int) bool {
 }
 
 // finding all prime factors
-func Factors(number int) []int {
+func (p *Prime) Factors(number int) []int {
 	var factors []int
 	if number == 1 {
 		return []int{1}
@@ -44,6 +48,11 @@ func Factors(number int) []int {
 	}
 
 	return factors
+}
+
+// duration from t1 to t2 (unit test purpose)
+func (p *Prime) DiffTime(t1 time.Time, t2 time.Time) time.Duration {
+	return t2.Sub(t1)
 }
 
 func sqrt(number int) int {
